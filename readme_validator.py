@@ -1,10 +1,9 @@
 # Released to students: validator for README
-
 import sys
 
 def main(argv):
     if len(argv) == 1:
-        print(processReadMe(argv[1]))
+        print(processReadMe(argv[0]))
     elif len(argv) == 0:
         print(processReadMe())
     else:
@@ -13,7 +12,7 @@ def main(argv):
 def processReadMe(path="README"):    
     try:
         fin = open("README", "r")
-    except FileNotFoundError:
+    except IOError:
         return "README not found."
 
     line = fin.readline().strip()
