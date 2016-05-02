@@ -23,13 +23,13 @@ if ~isempty(edgedis)
         if (edgedis(row, 2) == s) & ~visited((edgedis(row, 1)));
             prev_node = edgedis(row, 1);
             cycle = [prev_node cycle]; 
-            display(cycle);
+            %display(cycle);
             break; 
         end 
     end  
-display(T);
-display(edgenew);
-display(edgedis);
+%display(T);
+%display(edgenew);
+%display(edgedis);
 end
 
 if prev_node ~= 0
