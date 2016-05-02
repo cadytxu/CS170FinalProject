@@ -17,7 +17,13 @@ plot(G);
 fclose(fid);
 
 visited = zeros(1, num_of_v); 
+weight_arr = ones(1, num_of_v);
+for v = 1:num_of_children
+    weight_arr(children(v)+1) = 2;
+end 
+    
 cycles = [];
+achievement = 0; 
 
 % display('child ------');
 % for child = 1: num_of_children 
@@ -43,6 +49,7 @@ for node = 1: num_of_v
             for i = 1: length(cycle)
                 if ~(cycle(i) == 0)
                     visited(cycle(i)) = 1;
+                    achievement = achievement + weight_arr(cycle(i));
                 end
             end 
             cycles = [cycles;cycle]; 
@@ -50,5 +57,6 @@ for node = 1: num_of_v
     end
 end
 display(visited);
+display(achievement);
 
 

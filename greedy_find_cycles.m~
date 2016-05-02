@@ -9,7 +9,7 @@ num_of_v = str2num(num_of_v_str);
 children = strread(fgetl(fid));
 num_of_children = length(children);
 
-adj_matrix = dlmread('phase1-processed/196.in');
+adj_matrix = dlmread('UNBREAKABLE3.in');
 adj_matrix(1:2,:) = [];
 %M_transpose = M.';
 G = digraph(adj_matrix); 
@@ -17,7 +17,13 @@ plot(G);
 fclose(fid);
 
 visited = zeros(1, num_of_v); 
+weight_arr = ones(1, num_of_v);
+for v = 1:num_of_children
+    weight_arr(children(v)+1) = 2;
+end 
+    
 cycles = [];
+achievement = 0; 
 
 % display('child ------');
 % for child = 1: num_of_children 
@@ -41,12 +47,16 @@ for node = 1: num_of_v
             %G = rmnode(G, cycle);
             display(cycle);
             for i = 1: length(cycle)
-                visited(cycle(i)) = 1;
+                if ~(cycle(i) == 0)
+                    visited(cycle(i)) = 1;
+                    achievenment = achievement + weight(cycle(i));
+                end
             end 
             cycles = [cycles;cycle]; 
         end   
     end
 end
 display(visited);
+display("You have achieved " + achievenment + " points.")
 
 
