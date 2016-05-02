@@ -1,0 +1,38 @@
+function [ cycles ] = greedy_cycles( )
+%GREEDY_CYCLES Summary of this function goes here
+%   Detailed explanation goes here
+
+fid = fopen('phase1-processed/423.in', 'r');
+num_of_v_str = fgetl(fid);
+num_of_v = str2num(num_of_v_str);
+
+children = strread(fgetl(fid));
+num_of_children = length(children);
+
+adj_matrix = dlmread('phase1-processed/423.in');
+adj_matrix(1:2,:) = [];
+%M_transpose = M.';
+G = digraph(adj_matrix); 
+%plot(G); 
+fclose(fid);
+
+visited = zeros(1, num_of_v); 
+cycles = [];
+
+for child = 1: num_of_children 
+    if ~visited(children(child)+1)    
+        cycle = dfs_find_cycles(G,children(child)); 
+        if ~isempty(cycle)
+            G = removeVertex(G, cycle); 
+            cycles = [cycles;cycle]; 
+        end   
+    end
+end 
+
+for node = 1: num_of_v
+    if ~visited(node)
+
+
+
+end
+
