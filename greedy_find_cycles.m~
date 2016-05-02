@@ -39,6 +39,24 @@ achievement = 0;
 %     end
 % end 
 
+display('children ------');
+for node = 1: num_of_children
+    if ~visited(node)
+        cycle = dfs_find_cycle(G,node,visited);
+        if ~isempty(cycle)
+            %G = rmnode(G, cycle);
+            display(cycle);
+            for i = 1: length(cycle)
+                if ~(cycle(i) == 0)
+                    visited(cycle(i)) = 1;
+                    achievement = achievement + weight_arr(cycle(i));
+                end
+            end 
+            cycles = [cycles;cycle]; 
+        end   
+    end
+end
+
 display('adult ------');
 for node = 1: num_of_v
     if ~visited(node)
@@ -49,7 +67,7 @@ for node = 1: num_of_v
             for i = 1: length(cycle)
                 if ~(cycle(i) == 0)
                     visited(cycle(i)) = 1;
-                    achievenment = achievement + weight(cycle(i));
+                    achievement = achievement + weight_arr(cycle(i));
                 end
             end 
             cycles = [cycles;cycle]; 
@@ -57,6 +75,6 @@ for node = 1: num_of_v
     end
 end
 display(visited);
-display("You have achieved " + achievenment + " points.")
+display(achievement);
 
 

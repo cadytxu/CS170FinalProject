@@ -25,21 +25,27 @@ end
 cycles = [];
 achievement = 0; 
 
-% display('child ------');
-% for child = 1: num_of_children 
-%     if ~visited(children(child)+1) 
-%         display(children(child)+1)
-%         cycle = dfs_find_cycle(G,children(child)+1); 
-%         display(cycle);
-%         if ~isempty(cycle)
-%             %G = rmnode(G, cycle);
-%             %num_of_v = num_of_v - length(cycle);
-%             cycles = [cycles;cycle]; 
-%         end   
-%     end
-% end 
 
-display('adult ------');
+display('children ------');
+for i = 1: num_of_children
+    child = children(i)+1;
+    if ~visited(child)
+        cycle = dfs_find_cycle(G,child,visited);
+        if ~isempty(cycle)
+            %G = rmnode(G, cycle);
+            display(cycle);
+            for i = 1: length(cycle)
+                if ~(cycle(i) == 0)
+                    visited(cycle(i)) = 1;
+                    achievement = achievement + weight_arr(cycle(i));
+                end
+            end 
+            cycles = [cycles;cycle]; 
+        end   
+    end
+end
+
+display('adults ------');
 for node = 1: num_of_v
     if ~visited(node)
         cycle = dfs_find_cycle(G,node,visited);
