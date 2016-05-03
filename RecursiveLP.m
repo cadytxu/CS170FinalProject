@@ -140,8 +140,10 @@ for instID = 1:492
         if ~existsCycle
             fprintf(outfileID, 'None');
         end
+    else % else use greedy
+        
     end
-    % else use greedy
+    
     fclose(fid);
 end
 fclose(outfileID);

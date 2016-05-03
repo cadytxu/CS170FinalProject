@@ -38,6 +38,7 @@ if prev_node ~= 0
             if (edgenew(row, 2) == prev_node) & ~visited((edgenew(row, 1)))
                 prev_node = edgenew(row, 1);
                 cycle = [prev_node cycle];
+                %display(cycle);
             elseif edgenew(row, 2) == prev_node 
                 cycle = [];
                 break;

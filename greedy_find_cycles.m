@@ -3,17 +3,22 @@ function [ cycles ] = greedy_find_cycles( )
 %   Detailed explanation goes here
 
 fid = fopen('UNBREAKABLE1.in', 'r');
+%fid = fopen('phase1-processed/423.in', 'r');
 num_of_v_str = fgetl(fid);
 num_of_v = str2num(num_of_v_str);
+display(num_of_v);
 
 children = strread(fgetl(fid));
 num_of_children = length(children);
+display(num_of_children);
 
 adj_matrix = dlmread('UNBREAKABLE1.in');
+%adj_matrix = dlmread('phase1-processed/423.in');
+
 adj_matrix(1:2,:) = [];
 %M_transpose = M.';
 G = digraph(adj_matrix); 
-plot(G); 
+%plot(G); 
 figure
 fclose(fid);
 
@@ -34,9 +39,9 @@ for i = 1: num_of_children
         cycle = dfs_find_cycle(G,child,visited);
         if ~isempty(cycle)
             %G = rmnode(G, cycle);
-            %display(cycle);
+            display(cycle);
             for i = 1: length(cycle)
-                if ~(cycle(i) == 0)
+                if cycle(i) ~= 0
                     visited(cycle(i)) = 1;
                     achievement = achievement + weight_arr(cycle(i));
                 end
@@ -63,19 +68,19 @@ for node = 1: num_of_v
         end   
     end
 end
-%display(visited);
+display(visited);
 display(achievement);
 
-A = zeros(size(cycles, 1), 5);
+A = zeros(num_of_v, num_of_v);
 
 for row = 1:size(cycles, 1)
     col = 1;
-    while col <= 5 & cycles(row, col+1) ~=0
+    while col < 5 & cycles(row, col+1) ~=0
         A(cycles(row, col), cycles(row, col+1)) = 1;
         col = col + 1;
     end
     A(cycles(row, col), cycles(row, 1)) = 1;
 end 
 G_solution = digraph(A); 
-plot(G_solution); 
+%plot(G_solution); 
 

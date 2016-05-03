@@ -1,9 +1,0 @@
-function [ cycles ] = dfs_find_cycles( adj_matrix, s)
-%DFS_FIND_CYCLES Summary of this function goes here
-%   Detailed explanation goes here
-for i = 1:size(adj_matrix, s)
-    if adj_matrix(s, i) == 0
-        
-
-end
-
