@@ -1,4 +1,4 @@
-function [ cycle ] = dfs_find_cycle(G, s, visited)
+function [ dfs_cycle ] = dfs_find_cycle(G, s, visited)
 %DFS_FIND_CYCLES Summary of this function goes here
 %Use DFS to find a cycle from the node s 
 %Output the array of vertices 
@@ -9,7 +9,7 @@ function [ cycle ] = dfs_find_cycle(G, s, visited)
 %plot(G); 
 
 
-cycle=[];
+dfs_cycle=[];
 %s = 1; 
 
 events = {'edgetonew','edgetodiscovered','edgetofinished','startnode'};
@@ -20,9 +20,9 @@ prev_node = 0;
 
 if ~isempty(edgedis)
     for row = 1:length(edgedis)
-        if (edgedis(row, 2) == s) & ~visited((edgedis(row, 1)));
+        if (edgedis(row, 2) == s) && ~visited((edgedis(row, 1)));
             prev_node = edgedis(row, 1);
-            cycle = [prev_node cycle]; 
+            dfs_cycle = [prev_node dfs_cycle]; 
             %display(cycle);
             break; 
         end 
@@ -33,28 +33,28 @@ if ~isempty(edgedis)
 end
 
 if prev_node ~= 0
-    while (prev_node ~= s) & ~isempty(cycle)
+    while (prev_node ~= s) && ~isempty(dfs_cycle)
         for row = 1:length(edgenew)
-            if (edgenew(row, 2) == prev_node) & ~visited((edgenew(row, 1)))
+            if (edgenew(row, 2) == prev_node) && ~visited((edgenew(row, 1)))
                 prev_node = edgenew(row, 1);
-                cycle = [prev_node cycle];
+                dfs_cycle = [prev_node dfs_cycle];
                 %display(cycle);
             elseif edgenew(row, 2) == prev_node 
-                cycle = [];
+                dfs_cycle = [];
                 break;
             end 
         end 
     end
 end 
 
-if length(cycle) > 5
-    cycle = [];
-elseif length(cycle) == 4
-    cycle = [cycle 0];
-elseif length(cycle) == 3
-    cycle = [cycle 0 0];
-elseif length(cycle) == 2
-    cycle = [cycle 0 0 0];
+if length(dfs_cycle) > 5
+    dfs_cycle = [];
+elseif length(dfs_cycle) == 4
+    dfs_cycle = [dfs_cycle 0];
+elseif length(dfs_cycle) == 3
+    dfs_cycle = [dfs_cycle 0 0];
+elseif length(dfs_cycle) == 2
+    dfs_cycle = [dfs_cycle 0 0 0];
 end 
     
 

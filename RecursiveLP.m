@@ -33,12 +33,12 @@ for instID = 1:492
     end
     M_transpose = M.';
     
-    G = digraph(M);
-    %         figure
-    %         plot(G);
-    %         drawnow
-    %         titlename = sprintf('initial graph %d', instID);
-    %         title(titlename);
+     G = digraph(M);
+%             figure
+%             plot(G);
+%             drawnow
+%             titlename = sprintf('initial graph %d', instID);
+%             title(titlename);
     
     num_e = size(G.Edges, 1);
     density = num_e/(num_v * (num_v - 1));
@@ -141,6 +141,37 @@ for instID = 1:492
             fprintf(outfileID, 'None');
         end
     else % else use greedy
+        greedy_cycles = greedy_find_cycles(num_v, children, M) - 1;
+        %display(greedy_cycles);
+        if isempty(greedy_cycles)
+            fprintf(outfileID, 'None');
+        else 
+            if size(greedy_cycles, 1) == 1 
+                greedy_col = 1; 
+                greedy_row = 1; 
+                while (greedy_col < 5) & (greedy_cycles(greedy_row, greedy_col + 1) >= 0)
+                    fprintf(outfileID, '%d ', greedy_cycles(greedy_row, greedy_col));
+                    greedy_col = greedy_col + 1; 
+                end
+                fprintf(outfileID, '%d', greedy_cycles(greedy_row, greedy_col));
+            else 
+                for greedy_row = 1: size(greedy_cycles, 1)-1
+                    greedy_col = 1; 
+                    while greedy_col < 5 && greedy_cycles(greedy_row, greedy_col + 1) >= 0
+                        fprintf(outfileID, '%d ', greedy_cycles(greedy_row, greedy_col));
+                        greedy_col = greedy_col + 1; 
+                    end
+                    fprintf(outfileID, '%d; ', greedy_cycles(greedy_row, greedy_col));
+                end 
+                greedy_col = 1; 
+                greedy_row = greedy_row + 1; 
+                while (greedy_col < 5) & (greedy_cycles(greedy_row, greedy_col + 1) >= 0)
+                    fprintf(outfileID, '%d ', greedy_cycles(greedy_row, greedy_col));
+                    greedy_col = greedy_col + 1; 
+                end
+                fprintf(outfileID, '%d', greedy_cycles(greedy_row, greedy_col));
+            end 
+        end 
         
     end
     
