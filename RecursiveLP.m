@@ -2,7 +2,7 @@ clear
 outfileID = fopen('solutions.in','w');
 firstFile = 1;
 % instances that cannot be solved by LP
-problemList = [2 59 63 113 120 123 144 153 189 201 204 225 285 436];
+problemList = [2 6 18 24 30 35 37 45 53 59 63 76 87 90 94 104 110 111 113 114 120 123 129 132 137 140 144 148 153 160 168 169 171 173 176 178 184 187 189 200 201 204 206 207 215 222 224 225 228 229 230 239 259 261 267 269 285 287 289 290 296 303 314 316 317 334 340 349 360 361 368 370 377 380 405 419 421 436 438 444 445 453 460 464 467 468 483 492];
 num_sol = 0;
 for instID = 1:492
     %extract adjacency matrix and transpose of adjacency matrix
@@ -43,7 +43,7 @@ for instID = 1:492
     num_e = size(G.Edges, 1);
     density = num_e/(num_v * (num_v - 1));
     
-    if (density < 0.45) && (num_v < 50) && ~any(instID==problemList)
+    if (density < 0.5) && (num_v < 200) && ~any(instID==problemList)
         num_sol = num_sol + 1;
         %form Aeq
         new_M = zeros(num_v, num_v^2, 'double');
